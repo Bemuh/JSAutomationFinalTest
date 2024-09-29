@@ -27,10 +27,26 @@ class LoginPage extends BasePage {
      * @returns {Promise<void>} - A promise that resolves when the error message check is completed.
      */
     async checkErrorMessage(expectedMessage) {
-        await this.errorMessage.waitForErrorMessage() // Wait for error message to be displayed
-        const message = await this.errorMessage.getErrorMessageText() // Get the error message text
-        expect(message).toEqual(expectedMessage) // Assert that the error message matches
+        try {
+            // Wait for the error message to be displayed with a timeout
+            await this.errorMessage.waitForErrorMessage({ timeout: 5000 })
+
+            // Get the error message text from the error message box
+            const actualMessage = await this.errorMessage.getErrorMessageText()
+
+            // Log the actual message (optional)
+            console.log(`Actual error message displayed: ${actualMessage}`)
+
+            // Assert that the actual message matches the expected one
+            expect(actualMessage).toEqual(expectedMessage, `Expected error message: "${expectedMessage}" but got: "${actualMessage}"`)
+
+        } catch (error) {
+            // Log and rethrow the error with additional context
+            console.error(`Error checking error message. Expected: "${expectedMessage}". Error: ${error.message}`)
+            throw new Error(`Error checking error message. Expected: "${expectedMessage}", but encountered an issue: ${error.message}`)
+        }
     }
+
 
     /**
      * Retrieves the list of accepted usernames from the credentials info section on the login page.

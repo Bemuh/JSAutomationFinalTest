@@ -25,14 +25,10 @@ describe("Saucedemo's login page test suite", () => {
     it('UC-3: Test Login Form with Valid Credentials', async () => {
         const username = await pages('login').getUsernamesArray(0)
         const password = await pages('login').getPasswordArray(0)
-        console.log(`the username is: ${username}`) 
-        console.log(`the password is: ${password}`)
+        console.log(`Username: ${username}`) 
+        console.log(`Password: ${password}`)
     
         await pages('login').login(username, password)
- 
-        const swagLabsLogo = await $('//div[@class="app_logo" and text()="Swag Labs"]')
-        await swagLabsLogo.waitForDisplayed()
-        const text = await swagLabsLogo.getText()
-        expect(text).toEqual('Swag Labs')
+        await pages('dashboard').header.checkSwagLabsLogo()
     })
 })
