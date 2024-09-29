@@ -1,0 +1,14 @@
+{
+  "name": "jsautomationfinaltest",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^9.1.2",
+    "@wdio/cli": "^9.1.2",
+    "@wdio/local-runner": "^9.1.2",
+    "@wdio/mocha-framework": "^9.1.2",
+    "@wdio/spec-reporter": "^9.1.2",
+    "wdio-edgedriver-service": "^3.0.3"
+  },
+  "scripts": {
+    "test": "wdio run src/config/wdio.conf.js"
+  }
+}
